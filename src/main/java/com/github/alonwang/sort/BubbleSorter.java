@@ -7,11 +7,10 @@ public class BubbleSorter implements Sorter {
         if (a.length <= 1) {
             return;
         }
-        boolean changeFlag = false;
         for (int i = a.length - 1; i > 0; i--) {
-            changeFlag = false;
+            boolean changeFlag = false;
             for (int j = 0; j < i; j++) {
-                if (less(a[j + 1], a[j])) {
+                if (a[j + 1].compareTo(a[j]) < 0) {
                     swap(a, j + 1, j);
                     changeFlag = true;
                 }
