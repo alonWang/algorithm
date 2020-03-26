@@ -20,15 +20,7 @@ public interface Sorter {
 
     }
 
-    default boolean isSorted(Comparable[] a) {
-        for (int i = 1; i < a.length; i++) {
-            if (a[i].compareTo(a[i - 1]) < 0)
-                return false;
-        }
-        return true;
-    }
-
-    default void test() {
+    default void performanceTest() {
         long startMill = System.currentTimeMillis();
         for (int i = 0; i < 1000; i++) {
             int len = ThreadLocalRandom.current().nextInt(10000);
@@ -54,5 +46,11 @@ public interface Sorter {
         long gapMill = System.currentTimeMillis() - startMill;
 
         System.out.println("sort all success, avgSec: " + TimeUnit.MILLISECONDS.toSeconds(gapMill) / 1000.0);
+    }
+
+    public static void main(String[] args) {
+        new BubbleSorter().performanceTest();
+        new InsertSorter().performanceTest();
+        new SelectSorter().performanceTest();
     }
 }

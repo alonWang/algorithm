@@ -23,6 +23,6 @@ public class InsertSorter implements Sorter {
     }
 
     public static void main(String[] args) {
-        new InsertSorter().test();
+        new InsertSorter().performanceTest();
     }
 }

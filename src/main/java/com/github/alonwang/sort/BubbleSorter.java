@@ -22,6 +22,6 @@ public class BubbleSorter implements Sorter {
     }
 
     public static void main(String[] args) {
-        new BubbleSorter().test();
+        new BubbleSorter().performanceTest();
     }
 }
