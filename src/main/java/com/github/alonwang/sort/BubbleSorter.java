@@ -21,6 +21,11 @@ public class BubbleSorter implements Sorter {
         }
     }
 
+    @Override
+    public String name() {
+        return "bubble";
+    }
+
     public static void main(String[] args) {
         new BubbleSorter().performanceTest();
     }

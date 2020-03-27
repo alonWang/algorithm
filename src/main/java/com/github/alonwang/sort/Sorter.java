@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 public interface Sorter {
     void sort(Comparable[] arr);
 
+    String name();
+
     default void swap(Comparable[] a, int i, int j) {
         Comparable t = a[i];
         a[i] = a[j];
@@ -45,12 +47,13 @@ public interface Sorter {
         }
         long gapMill = System.currentTimeMillis() - startMill;
 
-        System.out.println("sort all success, avgSec: " + TimeUnit.MILLISECONDS.toSeconds(gapMill) / 1000.0);
+        System.out.println(name() + " sort all success, avgSec: " + TimeUnit.MILLISECONDS.toSeconds(gapMill) / 1000.0);
     }
 
     public static void main(String[] args) {
         new BubbleSorter().performanceTest();
         new InsertSorter().performanceTest();
         new SelectSorter().performanceTest();
+        new MergeSorter().performanceTest();
     }
 }

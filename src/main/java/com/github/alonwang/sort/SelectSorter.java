@@ -19,6 +19,11 @@ public class SelectSorter implements Sorter {
         }
     }
 
+    @Override
+    public String name() {
+        return "select";
+    }
+
     public static void main(String[] args) {
         new SelectSorter().performanceTest();
     }

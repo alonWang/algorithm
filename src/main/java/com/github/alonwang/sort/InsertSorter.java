@@ -22,6 +22,11 @@ public class InsertSorter implements Sorter {
         }
     }
 
+    @Override
+    public String name() {
+        return "insert";
+    }
+
     public static void main(String[] args) {
         new InsertSorter().performanceTest();
     }
