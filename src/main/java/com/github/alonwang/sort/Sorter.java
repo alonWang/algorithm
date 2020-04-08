@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public interface Sorter {
@@ -34,11 +33,11 @@ public interface Sorter {
             arrays.addAll(Arrays.asList(customs));
         }
 
-        for (int i = 0; i < 1000; i++) {
-            int len = ThreadLocalRandom.current().nextInt(10000);
+        for (int i = 0; i < 100; i++) {
+            int len = ThreadLocalRandom.current().nextInt(1000);
             Comparable[] arr = new Integer[len];
             for (int j = 0; j < len; j++) {
-                arr[j] = ThreadLocalRandom.current().nextInt(10000);
+                arr[j] = ThreadLocalRandom.current().nextInt(1000);
             }
             arrays.add(arr);
 
@@ -60,7 +59,7 @@ public interface Sorter {
             }
         });
         long gapMill = System.currentTimeMillis() - startMill;
-        System.out.println(name() + " sort all success, avgSec: " + TimeUnit.MILLISECONDS.toSeconds(gapMill) / 1000.0);
+        System.out.println(name() + " sort all success, avgMills: " + gapMill);
     }
 
     public static void main(String[] args) {
@@ -68,5 +67,6 @@ public interface Sorter {
         new InsertSorter().performanceTest();
         new SelectSorter().performanceTest();
         new MergeSorter().performanceTest();
+        new ShellSorter().performanceTest();
     }
 }
