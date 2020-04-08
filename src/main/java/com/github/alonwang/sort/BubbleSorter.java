@@ -1,5 +1,7 @@
 package com.github.alonwang.sort;
 
+import com.github.alonwang.util.SortUtil;
+
 public class BubbleSorter implements Sorter {
 
     @Override
@@ -11,7 +13,7 @@ public class BubbleSorter implements Sorter {
             boolean changeFlag = false;
             for (int j = 0; j < i; j++) {
                 if (a[j + 1].compareTo(a[j]) < 0) {
-                    swap(a, j + 1, j);
+                    SortUtil.swap(a, j + 1, j);
                     changeFlag = true;
                 }
             }

@@ -1,5 +1,7 @@
 package com.github.alonwang.sort;
 
+import com.github.alonwang.util.SortUtil;
+
 public class SelectSorter implements Sorter {
     @Override
     public void sort(Comparable[] arr) {
@@ -15,7 +17,7 @@ public class SelectSorter implements Sorter {
                     minValue = arr[j];
                 }
             }
-            swap(arr, minPos, i - 1);
+            SortUtil.swap(arr, minPos, i - 1);
         }
     }
 

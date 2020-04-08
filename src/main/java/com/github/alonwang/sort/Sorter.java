@@ -11,15 +11,6 @@ public interface Sorter {
 
     String name();
 
-    default void swap(Comparable[] a, int i, int j) {
-        if (i == j) {
-            return;
-        }
-        Comparable t = a[i];
-        a[i] = a[j];
-        a[j] = t;
-    }
-
     default String show(Comparable[] arr) {
         return Arrays.stream(arr).map(Object::toString)
                 .collect(Collectors.joining(" -> ", " [ ", " ] "));
@@ -33,7 +24,7 @@ public interface Sorter {
             arrays.addAll(Arrays.asList(customs));
         }
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 5000; i++) {
             int len = ThreadLocalRandom.current().nextInt(1000);
             Comparable[] arr = new Integer[len];
             for (int j = 0; j < len; j++) {
@@ -53,7 +44,7 @@ public interface Sorter {
                 }
             }
             if (!isSorted) {
-                System.err.println("sort failed,original arr: \n" + origin
+                System.err.println(name() + " sort failed,original arr: \n" + origin
                         + "\n sorted arr: \n" + show(arr));
                 throw new IllegalStateException("Sort failed!");
             }
@@ -67,6 +58,7 @@ public interface Sorter {
         new InsertSorter().performanceTest();
         new SelectSorter().performanceTest();
         new MergeSorter().performanceTest();
+        new QuickSorter().performanceTest();
         new ShellSorter().performanceTest();
     }
 }

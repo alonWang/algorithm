@@ -1,5 +1,7 @@
 package com.github.alonwang.sort;
 
+import com.github.alonwang.util.SortUtil;
+
 public class QuickSorter implements Sorter {
     @Override
     public void sort(Comparable[] arr) {
@@ -23,10 +25,10 @@ public class QuickSorter implements Sorter {
         int i = low;
         for (int j = low; j < high - 1; j++) {
             if (arr[j].compareTo(cmpValue) <= 0) {
-                swap(arr, i++, j);
+                SortUtil.swap(arr, i++, j);
             }
         }
-        swap(arr, i, high - 1);
+        SortUtil.swap(arr, i, high - 1);
         return i;
     }
 

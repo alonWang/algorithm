@@ -1,7 +1,5 @@
 package com.github.alonwang.sort;
 
-import com.github.alonwang.util.SortUtil;
-
 public class ShellSorter implements Sorter {
     @Override
     public void sort(Comparable[] arr) {
@@ -9,8 +7,8 @@ public class ShellSorter implements Sorter {
             return;
         }
         for (int gap = arr.length / 2; gap >= 1; gap /= 2) {
-            for (int i = gap; i >= 0; i--) {
-                //各个子数组分别插入排序,j表示子数组的第二个元素下标
+            //各个子数组分别插入排序,i表示子数组的第二个元素下标
+            for (int i = gap; i < 2 * gap; i++) {
                 for (int j = i; j < arr.length; j += gap) {
                     int pos = j;
                     Comparable cmpVal = arr[j];
@@ -23,8 +21,7 @@ public class ShellSorter implements Sorter {
                             break;
                         }
                     }
-                    SortUtil.swap(arr, pos, j);
-
+                    arr[pos] = cmpVal;
                 }
             }
 
