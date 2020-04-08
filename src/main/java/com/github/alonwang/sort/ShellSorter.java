@@ -6,22 +6,22 @@ public class ShellSorter implements Sorter {
         if (arr.length <= 1) {
             return;
         }
-        for (int gap = arr.length / 2; gap >= 1; gap /= 2) {
-            //各个子数组分别插入排序,i表示子数组的第二个元素下标
-            for (int i = gap; i < 2 * gap; i++) {
-                for (int j = i; j < arr.length; j += gap) {
-                    int pos = j;
-                    Comparable cmpVal = arr[j];
-                    for (int k = j - gap; k >= 0; k -= gap) {
-                        if (cmpVal.compareTo(arr[k]) < 0) {
-                            arr[k + gap] = arr[k];
-                            pos = k;
+        for (int subArrsNum = arr.length / 2; subArrsNum >= 1; subArrsNum /= 2) {
+            //处理每个子数组
+            for (int secondElePos = subArrsNum; secondElePos < 2 * subArrsNum; secondElePos++) {
+                for (int elePos = secondElePos; elePos < arr.length; elePos += subArrsNum) {
+                    int toInsertELePos = elePos;
+                    Comparable toInsertEleVal = arr[elePos];
+                    for (int orderedElePos = elePos - subArrsNum; orderedElePos >= 0; orderedElePos -= subArrsNum) {
+                        if (toInsertEleVal.compareTo(arr[orderedElePos]) < 0) {
+                            arr[orderedElePos + subArrsNum] = arr[orderedElePos];
+                            toInsertELePos = orderedElePos;
                         } else {
-                            pos = k + gap;
+                            toInsertELePos = orderedElePos + subArrsNum;
                             break;
                         }
                     }
-                    arr[pos] = cmpVal;
+                    arr[toInsertELePos] = toInsertEleVal;
                 }
             }
 
