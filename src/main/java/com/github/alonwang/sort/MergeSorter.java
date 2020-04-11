@@ -12,8 +12,8 @@ public class MergeSorter implements Sorter {
     }
 
     @Override
-    public String name() {
-        return "merge";
+    public SorterType type() {
+        return SorterType.Merge;
     }
 
     private void mergeSort(Comparable[] arr, int low, int high) {

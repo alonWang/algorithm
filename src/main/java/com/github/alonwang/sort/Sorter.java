@@ -1,15 +1,18 @@
 package com.github.alonwang.sort;
 
+import org.reflections.Reflections;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public interface Sorter {
     void sort(Comparable[] arr);
 
-    String name();
+    SorterType type();
 
     default String show(Comparable[] arr) {
         return Arrays.stream(arr).map(Object::toString)
@@ -44,21 +47,28 @@ public interface Sorter {
                 }
             }
             if (!isSorted) {
-                System.err.println(name() + " sort failed,original arr: \n" + origin
+                System.err.println(type() + " sort failed,original arr: \n" + origin
                         + "\n sorted arr: \n" + show(arr));
                 throw new IllegalStateException("Sort failed!");
             }
         });
         long gapMill = System.currentTimeMillis() - startMill;
-        System.out.println(name() + " sort all success, avgMills: " + gapMill);
+        System.out.println(type() + " sort all success, avgMills: " + gapMill);
     }
 
     public static void main(String[] args) {
-        new BubbleSorter().performanceTest();
-        new InsertSorter().performanceTest();
-        new SelectSorter().performanceTest();
-        new MergeSorter().performanceTest();
-        new QuickSorter().performanceTest();
-        new ShellSorter().performanceTest();
+        Reflections reflections = new Reflections(Sorter.class.getPackage().getName());
+        Set<Class<? extends Sorter>> sorters = reflections.getSubTypesOf(Sorter.class);
+        sorters.forEach(sorterClazz -> {
+            try {
+                //TODO refactor with Constructor
+                Sorter sorter = sorterClazz.newInstance();
+                sorter.performanceTest();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

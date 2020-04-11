@@ -23,8 +23,8 @@ public class InsertSorter implements Sorter {
     }
 
     @Override
-    public String name() {
-        return "insert";
+    public SorterType type() {
+        return SorterType.Insert;
     }
 
     public static void main(String[] args) {

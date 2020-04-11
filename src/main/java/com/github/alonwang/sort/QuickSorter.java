@@ -33,8 +33,8 @@ public class QuickSorter implements Sorter {
     }
 
     @Override
-    public String name() {
-        return "quick";
+    public SorterType type() {
+        return SorterType.Quick;
     }
 
     public static void main(String[] args) {

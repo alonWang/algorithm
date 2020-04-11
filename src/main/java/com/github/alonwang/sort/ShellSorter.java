@@ -29,8 +29,8 @@ public class ShellSorter implements Sorter {
     }
 
     @Override
-    public String name() {
-        return "shell";
+    public SorterType type() {
+        return SorterType.Shell;
     }
 
     public static void main(String[] args) {

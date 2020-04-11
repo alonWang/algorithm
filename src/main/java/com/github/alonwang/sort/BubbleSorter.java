@@ -24,8 +24,8 @@ public class BubbleSorter implements Sorter {
     }
 
     @Override
-    public String name() {
-        return "bubble";
+    public SorterType type() {
+        return SorterType.Bubble;
     }
 
     public static void main(String[] args) {

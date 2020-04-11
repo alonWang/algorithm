@@ -22,8 +22,8 @@ public class SelectSorter implements Sorter {
     }
 
     @Override
-    public String name() {
-        return "select";
+    public SorterType type() {
+        return SorterType.Select;
     }
 
     public static void main(String[] args) {
