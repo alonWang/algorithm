@@ -2,7 +2,7 @@ package com.github.alonwang.sort;
 
 import com.github.alonwang.util.SortUtil;
 
-public class BubbleSorter implements Sorter {
+public class BubbleSorter extends AbstractCompareSorter {
 
     @Override
     public void sort(Comparable[] a) {
@@ -29,6 +29,6 @@ public class BubbleSorter implements Sorter {
     }
 
     public static void main(String[] args) {
-        new BubbleSorter().performanceTest();
+        new BubbleSorter().benchmark();
     }
 }

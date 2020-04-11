@@ -1,6 +1,6 @@
 package com.github.alonwang.sort;
 
-public class InsertSorter implements Sorter {
+public class InsertSorter extends AbstractCompareSorter {
     @Override
     public void sort(Comparable[] arr) {
         if (arr.length <= 1) {
@@ -28,6 +28,6 @@ public class InsertSorter implements Sorter {
     }
 
     public static void main(String[] args) {
-        new InsertSorter().performanceTest();
+        new InsertSorter().benchmark();
     }
 }

@@ -2,7 +2,7 @@ package com.github.alonwang.sort;
 
 import java.util.Arrays;
 
-public class MergeSorter implements Sorter {
+public class MergeSorter extends AbstractCompareSorter {
     @Override
     public void sort(Comparable[] arr) {
         if (arr.length <= 1) {
@@ -47,6 +47,6 @@ public class MergeSorter implements Sorter {
     }
 
     public static void main(String[] args) {
-        new MergeSorter().performanceTest();
+        new MergeSorter().benchmark();
     }
 }

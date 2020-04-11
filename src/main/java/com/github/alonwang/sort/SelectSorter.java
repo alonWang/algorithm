@@ -2,7 +2,7 @@ package com.github.alonwang.sort;
 
 import com.github.alonwang.util.SortUtil;
 
-public class SelectSorter implements Sorter {
+public class SelectSorter extends AbstractCompareSorter {
     @Override
     public void sort(Comparable[] arr) {
         if (arr.length <= 1) {
@@ -27,6 +27,6 @@ public class SelectSorter implements Sorter {
     }
 
     public static void main(String[] args) {
-        new SelectSorter().performanceTest();
+        new SelectSorter().benchmark();
     }
 }

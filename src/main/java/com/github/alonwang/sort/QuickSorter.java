@@ -2,7 +2,7 @@ package com.github.alonwang.sort;
 
 import com.github.alonwang.util.SortUtil;
 
-public class QuickSorter implements Sorter {
+public class QuickSorter extends AbstractCompareSorter {
     @Override
     public void sort(Comparable[] arr) {
         if (arr.length <= 1) {
@@ -38,6 +38,6 @@ public class QuickSorter implements Sorter {
     }
 
     public static void main(String[] args) {
-        new QuickSorter().performanceTest(new Integer[]{1, 2, 3, 4, 0}, new Integer[]{1, 0}, new Integer[]{0, 1}, new Integer[]{1, 1, 2}, new Integer[]{2, 2, 1});
+        new QuickSorter().doBenchmark(new Integer[]{1, 2, 3, 4, 0}, new Integer[]{1, 0}, new Integer[]{0, 1}, new Integer[]{1, 1, 2}, new Integer[]{2, 2, 1});
     }
 }

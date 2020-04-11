@@ -1,6 +1,6 @@
 package com.github.alonwang.sort;
 
-public class ShellSorter implements Sorter {
+public class ShellSorter extends AbstractCompareSorter {
     @Override
     public void sort(Comparable[] arr) {
         if (arr.length <= 1) {
@@ -34,6 +34,6 @@ public class ShellSorter implements Sorter {
     }
 
     public static void main(String[] args) {
-        new ShellSorter().performanceTest();
+        new ShellSorter().benchmark();
     }
 }
