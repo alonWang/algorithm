@@ -1,5 +1,8 @@
 package com.github.alonwang.sort;
 
+import com.github.alonwang.util.SortUtil;
+import com.google.common.base.Preconditions;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,23 +26,9 @@ public abstract class AbstractCompareSorter implements Sorter<Comparable> {
             arrays.add(arr);
 
         }
-        arrays.forEach(arr -> {
-            String origin = show(arr);
-            sort(arr);
-            boolean isSorted = true;
-            for (int k = 1; k < arr.length; k++) {
-                if (arr[k].compareTo(arr[k - 1]) < 0) {
-                    isSorted = false;
-                    break;
-                }
-            }
-            if (!isSorted) {
-                System.err.println(type() + " sort failed,original arr: \n" + origin
-                        + "\n sorted arr: \n" + show(arr));
-                throw new IllegalStateException("Sort failed!");
-            }
-        });
+        arrays.forEach(this::sort);
         long gapMill = System.currentTimeMillis() - startMill;
+        arrays.forEach(arr -> Preconditions.checkArgument(SortUtil.isOrdered(arr), "%s sort failed", type()));
         System.out.println(type() + " sort all success, avgMills: " + gapMill);
     }
 

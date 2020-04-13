@@ -2,6 +2,7 @@ package com.github.alonwang.sort;
 
 import org.reflections.Reflections;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Set;
 
@@ -14,22 +15,17 @@ public interface Sorter<T> {
     void benchmark();
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Reflections reflections = new Reflections(Sorter.class.getPackage().getName());
         Set<Class<? extends Sorter>> sorters = reflections.getSubTypesOf(Sorter.class);
-        sorters.forEach(sorterClazz -> {
+        for (Class<? extends Sorter> sorterClazz : sorters) {
             if (Modifier.isAbstract(sorterClazz.getModifiers())) {
-                return;
+                continue;
             }
-            try {
-                //TODO refactor with Constructor
-                Sorter sorter = sorterClazz.newInstance();
-                sorter.benchmark();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        });
+            Constructor<? extends Sorter> constructor = sorterClazz.getConstructor();
+            Sorter sorter = constructor.newInstance();
+            sorter.benchmark();
+        }
+
     }
 }

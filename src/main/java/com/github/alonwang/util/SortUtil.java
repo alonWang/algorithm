@@ -17,6 +17,10 @@ public class SortUtil {
         arr[j] = tmp;
     }
 
+    public static boolean isOrdered(Comparable[] arr) {
+        return isOrdered(arr, true);
+    }
+
     public static boolean isOrdered(Comparable[] arr, boolean asc) {
         if (arr.length <= 1) {
             return true;

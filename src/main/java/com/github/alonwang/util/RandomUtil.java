@@ -1,5 +1,7 @@
 package com.github.alonwang.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomUtil {
@@ -15,5 +17,13 @@ public class RandomUtil {
             arr[j] = ThreadLocalRandom.current().nextInt(upperBound);
         }
         return arr;
+    }
+
+    public static List<Integer[]> batchGenerateRandomIntArray(int num, int length, int upperBound) {
+        List<Integer[]> lists = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            lists.add(generateRandomIntArray(length, upperBound));
+        }
+        return lists;
     }
 }
