@@ -1,6 +1,6 @@
 package com.github.alonwang.search;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -10,29 +10,8 @@ import java.util.concurrent.ThreadLocalRandom;
  * @detail 相比二分排序的原始形式, 相等时, 需要在判断 当前元素是否为数组的第一个元素 or 当前元素的前一个元素是否小于当先元素
  * 满足任意一个条件查找结束,否则缩小上界.
  */
-public class BinarySearcherVersion1 {
-    public static void main(String[] args) {
-        for (int i = 0; i < 2000; i++) {
-            int len = ThreadLocalRandom.current().nextInt(2000);
-            Integer[] arr = new Integer[len];
-            for (int j = 0; j < len; j++) {
-                arr[j] = ThreadLocalRandom.current().nextInt(2000);
-            }
-            Arrays.sort(arr);
-            int randomVal = ThreadLocalRandom.current().nextInt(1500);
-            int index = -1;
-            for (int j = 0; j < arr.length; j++) {
-                if (arr[j] == randomVal) {
-                    index = j;
-                    break;
-                }
-            }
-            int searchIndex = new BinarySearcherVersion1().search(arr, randomVal);
-            assert searchIndex == index;
-        }
-    }
-
-    private int search(Comparable[] arr, Comparable target) {
+public class BinarySearcherVersion1 extends AbstractBinarySearcher {
+    public int search(Comparable[] arr, Comparable target) {
         if (arr.length <= 0) {
             return -1;
         }
@@ -54,5 +33,21 @@ public class BinarySearcherVersion1 {
             }
         }
         return -1;
+    }
+
+    @Override
+    protected void doValidate(List<Integer[]> arrs) {
+        arrs.forEach(arr -> {
+            int randomVal = ThreadLocalRandom.current().nextInt(1500);
+            int index = -1;
+            for (int j = 0; j < arr.length; j++) {
+                if (arr[j] == randomVal) {
+                    index = j;
+                    break;
+                }
+            }
+            int searchIndex = search(arr, randomVal);
+            assert searchIndex == index;
+        });
     }
 }
