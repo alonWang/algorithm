@@ -1,21 +1,17 @@
 package com.github.alonwang.search;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
+ * 查找最后一个小于等于给定值的元素
+ *
  * @author alonwang
- * @date 2020/4/13 11:48 下午
- * @description 二分查找的最简单形式
- * @detail 几个注意点
- * * low<=high  low==high时,mid==low==high,需要判定mid是否符合要求
- * * mid计算使用low+(high-low)/2而不是(low+high)/2避免溢出
- * * 是low=mid+1 和high=mid-1 ,经过判定之后mid位置是确定不需要的
- * * high是包含的
+ * @date 2020/4/21 11:54 下午
+ * @detail
  */
-public class BinarySearcher extends AbstractBinarySearcher {
-
+public class BinarySearcherVersion4 extends AbstractBinarySearcher {
+    @Override
     public int search(Comparable[] arr, Comparable target) {
         if (arr.length <= 0) {
             return -1;
@@ -24,11 +20,12 @@ public class BinarySearcher extends AbstractBinarySearcher {
         int high = arr.length - 1;
         while (low <= high) {
             int mid = low + (high - low) / 2;
-            int cmpVal = arr[mid].compareTo(target);
-            if (cmpVal < 0) {
-                low = mid + 1;
-            } else if (cmpVal == 0) {
-                return mid;
+            if (arr[mid].compareTo(target) <= 0) {
+                if (mid == arr.length - 1 || arr[mid + 1].compareTo(target) > 0) {
+                    return mid;
+                } else {
+                    low = mid + 1;
+                }
             } else {
                 high = mid - 1;
             }
@@ -39,12 +36,18 @@ public class BinarySearcher extends AbstractBinarySearcher {
     @Override
     protected void doValidate(List<Integer[]> arrs) {
         arrs.forEach(arr -> {
-            //TODO error
             int randomVal = ThreadLocalRandom.current().nextInt(1500);
-            int index = Arrays.binarySearch(arr, randomVal);
+            int index = -1;
+            for (int j = 0; j < arr.length; j++) {
+                if (arr[j] <= randomVal) {
+                    index = j;
+
+                } else {
+                    break;
+                }
+            }
             int searchIndex = search(arr, randomVal);
             assert searchIndex == index;
         });
     }
 }
-
