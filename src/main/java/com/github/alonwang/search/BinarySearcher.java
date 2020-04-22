@@ -3,6 +3,7 @@ package com.github.alonwang.search;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 /**
  * @author alonwang
@@ -39,9 +40,15 @@ public class BinarySearcher extends AbstractBinarySearcher {
     @Override
     protected void doValidate(List<Integer[]> arrs) {
         arrs.forEach(arr -> {
-            //TODO error
             int randomVal = ThreadLocalRandom.current().nextInt(1500);
-            int index = Arrays.binarySearch(arr, randomVal);
+            arr = Arrays.stream(arr).distinct().collect(Collectors.toList()).toArray(new Integer[0]);
+            int index = -1;
+            for (int i = 0; i < arr.length; i++) {
+                if (arr[i] == randomVal) {
+                    index = i;
+                    break;
+                }
+            }
             int searchIndex = search(arr, randomVal);
             assert searchIndex == index;
         });
