@@ -18,7 +18,7 @@ public class BinarySearcherVersion3 extends AbstractBinarySearcher {
         int high = arr.length - 1;
         while (low <= high) {
             int mid = low + (high - low) / 2;
-            if (arr[mid].compareTo(target) >= 0) {
+            if (target.compareTo(arr[mid]) <= 0) {
                 if (mid == 0 || arr[mid - 1].compareTo(target) < 0) {
                     return mid;
                 } else {
