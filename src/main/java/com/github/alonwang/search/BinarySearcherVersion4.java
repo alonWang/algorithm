@@ -8,7 +8,11 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author alonwang
  * @date 2020/4/21 11:54 下午
- * @detail
+ * @detail 以下两种情况说明mid就是最后一个小于等于给定值的元素
+ * 情况1  [x,x,x,x,mid]  mid是最后一个数,mid<=target   即target大于数组中的最大值
+ * 情况2  最常规的情况 mid<=target,y>target [x,x,x,x,mid,y>target,x,x,x]
+ * 所以如果target>=arr[mid] 先看下mid是不是最后一个元素,
+ * 再看mid后面的元素是不是大于target,满足任意一个就说明arr[mid]是最后一个小于等于给定值的元素
  */
 public class BinarySearcherVersion4 extends AbstractBinarySearcher {
     @Override

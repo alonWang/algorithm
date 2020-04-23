@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
  * * mid计算使用low+(high-low)/2而不是(low+high)/2避免溢出
  * * 是low=mid+1 和high=mid-1 ,经过判定之后mid位置是确定不需要的
  * * high是包含的
+ * 因为每次范围都减半,比较次数 x=log(n),时间复杂度为O(logn)
  */
 public class BinarySearcher extends AbstractBinarySearcher {
 
