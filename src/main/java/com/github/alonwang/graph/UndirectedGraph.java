@@ -1,10 +1,6 @@
 package com.github.alonwang.graph;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * 无向图,节点数量不可变
@@ -19,6 +15,7 @@ public class UndirectedGraph {
      */
     private final int nodeCount;
     private final LinkedList<Integer>[] adjTable;
+    private boolean found = false;
 
     public UndirectedGraph(int nodeCount) {
         this.nodeCount = nodeCount;
@@ -26,6 +23,22 @@ public class UndirectedGraph {
         for (int i = 0; i < adjTable.length; i++) {
             this.adjTable[i] = new LinkedList<>();
         }
+    }
+
+    public static void main(String[] args) {
+        UndirectedGraph graph = new UndirectedGraph(8);
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 3);
+        graph.addEdge(1, 2);
+        graph.addEdge(1, 4);
+        graph.addEdge(2, 5);
+        graph.addEdge(3, 4);
+        graph.addEdge(4, 5);
+        graph.addEdge(4, 6);
+        graph.addEdge(5, 7);
+        graph.addEdge(6, 7);
+        List<Integer> result1 = graph.bfs(0, 6);
+        List<Integer> result2 = graph.dfs(0, 6);
     }
 
     /**
@@ -80,24 +93,33 @@ public class UndirectedGraph {
         path.add(node);
     }
 
-    public List<Integer> dfs(UndirectedGraph graph, int start, int target) {
-        //TODO
-        return null;
+    public List<Integer> dfs(int start, int target) {
+        found = false;
+        boolean[] visited = new boolean[nodeCount];
+        List<Integer> path = new ArrayList<>();
+        recursive(start, target, path, visited);
+        List<Integer> result = found ? path : null;
+        found = false;
+        return result;
     }
 
-    public static void main(String[] args) {
-        UndirectedGraph graph = new UndirectedGraph(8);
-        graph.addEdge(0, 1);
-        graph.addEdge(0, 3);
-        graph.addEdge(1, 2);
-        graph.addEdge(1, 4);
-        graph.addEdge(2, 5);
-        graph.addEdge(3, 4);
-        graph.addEdge(4, 5);
-        graph.addEdge(4, 6);
-        graph.addEdge(5, 7);
-        graph.addEdge(6, 7);
-        List<Integer> result = graph.bfs(0, 6);
-        System.out.println(result);
+    private void recursive(int node, int target, List<Integer> path, boolean[] visited) {
+        if (found || visited[node]) {
+            return;
+        }
+        visited[node] = true;
+        path.add(node);
+        if (node == target) {
+            found = true;
+            return;
+        }
+
+        for (Integer nextNode : adjTable[node]) {
+            recursive(nextNode, target, path, visited);
+        }
+        if (!found) {
+            path.remove((Integer) node);
+        }
+
     }
 }
