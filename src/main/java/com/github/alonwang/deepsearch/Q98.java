@@ -1,4 +1,6 @@
-package com.github.alonwang.tree;
+package com.github.alonwang.deepsearch;
+
+import com.github.alonwang.tree.TreeNode;
 
 /**
  * @author alonwang

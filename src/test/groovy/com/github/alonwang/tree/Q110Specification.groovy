@@ -1,6 +1,6 @@
 package com.github.alonwang.tree
 
-import com.github.alonwang.tree.Q110
+import com.github.alonwang.deepsearch.Q110
 import spock.lang.Specification
 
 
