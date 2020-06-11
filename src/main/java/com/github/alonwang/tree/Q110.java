@@ -1,4 +1,4 @@
-package com.github.alonwang.graph;
+package com.github.alonwang.tree;
 
 /**
  * @author alonwang
@@ -31,13 +31,4 @@ public class Q110 {
         return Math.max(l, r) + 1;
     }
 
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-        }
-    }
 }
