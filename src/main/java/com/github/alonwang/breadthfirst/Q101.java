@@ -2,9 +2,8 @@ package com.github.alonwang.breadthfirst;
 
 import com.github.alonwang.tree.TreeNode;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * @author alonwang
@@ -13,39 +12,28 @@ import java.util.List;
  */
 public class Q101 {
     public boolean isSymmetric(TreeNode root) {
-        if (root == null) {
-            return true;
-        }
-        int i = 0;
-        List<TreeNode> list = new ArrayList<>(2 << (i++));
-        list.add(root);
-        while (list.size() > 0) {
+        return check(root, root);
+    }
 
-            for (int j = 0, k = list.size() - 1; j < k; j++, k--) {
-                //都为空
-                if (list.get(j) == null && list.get(k) == null) {
-                    continue;
-                }
-                //都不为空且相等
-                if (list.get(j) != null && list.get(k) != null && list.get(j).val == list.get(k).val) {
-                    continue;
-                }
+    public boolean check(TreeNode u, TreeNode v) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(u);
+        q.offer(v);
+        while (!q.isEmpty()) {
+            u = q.poll();
+            v = q.poll();
+            if (u == null && v == null) {
+                continue;
+            }
+            if ((u == null || v == null) || (u.val != v.val)) {
                 return false;
             }
 
-            List<TreeNode> temp = new ArrayList<>(2 << i++);
-            boolean hasNode = false;
-            for (TreeNode treeNode : list) {
-                if (treeNode == null) {
-                    continue;
-                }
-                temp.add(treeNode.left);
-                temp.add(treeNode.right);
-                if (!hasNode && (treeNode.left != null || treeNode.right != null)) {
-                    hasNode = true;
-                }
-            }
-            list = hasNode ? temp : Collections.emptyList();
+            q.offer(u.left);
+            q.offer(v.right);
+
+            q.offer(u.right);
+            q.offer(v.left);
         }
         return true;
     }
