@@ -1,4 +1,4 @@
-package com.github.alonwang.deepsearch;
+package com.github.alonwang.depthfirst;
 
 import com.github.alonwang.tree.TreeNode;
 

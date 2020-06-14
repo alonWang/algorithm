@@ -1,4 +1,4 @@
-package com.github.alonwang.deepsearch;
+package com.github.alonwang.depthfirst;
 
 import java.util.ArrayList;
 import java.util.HashMap;

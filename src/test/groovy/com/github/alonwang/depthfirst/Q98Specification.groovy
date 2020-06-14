@@ -1,6 +1,6 @@
-package com.github.alonwang.dp
+package com.github.alonwang.depthfirst
 
-import com.github.alonwang.deepsearch.Q98
+
 import com.github.alonwang.tree.TreeNode
 import spock.lang.Specification
 
