@@ -7,12 +7,22 @@ import spock.lang.Specification
  * @detail
  */
 class StringSpecification extends Specification {
-    def "test"() {
+    def "test LengthOfLongestSubstring"() {
         expect:
         new LengthOfLongestSubstring().lengthOfLongestSubstring(str) == result
         where:
         str        | result
         "abcabcbb" | 3
         "bbbbb"    | 1
+    }
+
+    def "test LongestPalindrome"() {
+        expect:
+        new LongestPalindrome().longestPalindrome(str) == result
+        new LongestPalindrome().longestPalindrome1(str) == result
+        new LongestPalindrome().longestPalindrome2(str) == result
+        where:
+        str     | result
+        "ababa" | "ababa"
     }
 }
