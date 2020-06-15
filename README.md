@@ -1,5 +1,2 @@
-# algorithm_study
-TODO
-* unit test
-    * groovy
-    * spock
+# 我的数据结构学习记录
+本仓库记录我学习并实践过的数据结构,附带一些相应的leetcode题目加深理解.

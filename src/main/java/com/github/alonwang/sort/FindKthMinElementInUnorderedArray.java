@@ -1,12 +1,11 @@
-package com.github.alonwang.problem;
+package com.github.alonwang.sort;
 
+import cn.hutool.core.util.ArrayUtil;
 import com.github.alonwang.util.RandomUtil;
 
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
-
-import cn.hutool.core.util.ArrayUtil;
 
 /**
  * 时间复杂度

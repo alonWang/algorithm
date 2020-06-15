@@ -1,4 +1,4 @@
-package com.github.alonwang.problem;
+package com.github.alonwang.sort;
 
 import com.github.alonwang.util.RandomUtil;
 import com.github.alonwang.util.SortUtil;
