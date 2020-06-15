@@ -67,7 +67,6 @@ public class Q130 {
                 }
             }
         }
-        System.out.println(233);
     }
 
     private void dfs(char[][] board, int i, int j) {
