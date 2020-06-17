@@ -2,7 +2,7 @@ package com.github.alonwang.string
 
 import spock.lang.Specification
 
-/**
+/** Q14
  * @author alonwang* @date 2020/6/15 18:54
  * @detail
  */
@@ -34,5 +34,13 @@ class StringSpecification extends Specification {
         "LEETCODEISHIRING" | 3   | "LCIRETOESIIGEDHN"
 
 
+    }
+
+    def "test LongestCommonPrefix"() {
+        expect:
+        new LongestCommonPrefix().longestCommonPrefix(strs as String[]) == prefix
+        where:
+        strs                         | prefix
+        ["flower", "flow", "flight"] | "fl"
     }
 }
