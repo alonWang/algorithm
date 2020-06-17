@@ -1,7 +1,7 @@
 package com.github.alonwang.string;
 
 /**
- * 以最短的字符串为前缀,不断缩短长度,与剩余字符串比较.
+ * 以最短的字符串为前缀,不断缩短长度,与剩余字符串比较. Q14
  */
 class LongestCommonPrefix {
     public String longestCommonPrefix(String[] strs) {
