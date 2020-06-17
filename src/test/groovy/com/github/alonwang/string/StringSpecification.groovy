@@ -25,4 +25,14 @@ class StringSpecification extends Specification {
         str     | result
         "ababa" | "ababa"
     }
+
+    def "test Q6"() {
+        expect:
+        new Q6().convert(str, row) == result
+        where:
+        str                | row | result
+        "LEETCODEISHIRING" | 3   | "LCIRETOESIIGEDHN"
+
+
+    }
 }
