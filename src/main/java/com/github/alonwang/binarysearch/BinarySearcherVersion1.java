@@ -1,4 +1,4 @@
-package com.github.alonwang.search;
+package com.github.alonwang.binarysearch;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;

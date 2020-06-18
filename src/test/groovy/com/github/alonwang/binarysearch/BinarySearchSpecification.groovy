@@ -14,6 +14,14 @@ class BinarySearchSpecification extends Specification {
         nums                  | target | result
         [4, 5, 6, 7, 0, 1, 2] | 0      | 4
         [1]                   | 1      | 0
+    }
 
+    def "test Q34"() {
+        expect:
+        new Q34().searchRange(nums as int[], target) == result as int[]
+        where:
+        nums                | target | result
+        [5, 7, 7, 8, 8, 10] | 8      | [3, 4]
+        [5, 7, 7, 8, 8, 10] | 6      | [-1, -1]
     }
 }

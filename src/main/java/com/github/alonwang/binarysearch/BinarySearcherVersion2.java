@@ -1,4 +1,4 @@
-package com.github.alonwang.search;
+package com.github.alonwang.binarysearch;
 
 import java.util.Arrays;
 import java.util.List;
