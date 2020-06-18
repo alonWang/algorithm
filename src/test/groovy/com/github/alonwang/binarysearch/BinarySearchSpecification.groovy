@@ -24,4 +24,12 @@ class BinarySearchSpecification extends Specification {
         [5, 7, 7, 8, 8, 10] | 8      | [3, 4]
         [5, 7, 7, 8, 8, 10] | 6      | [-1, -1]
     }
+
+    def "test Q35"() {
+        expect:
+        new Q35().searchInsert(nums as int[], target) == result
+        where:
+        nums         | target | result
+        [1, 3, 5, 6] | 7      | 4
+    }
 }
