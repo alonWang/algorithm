@@ -25,4 +25,14 @@ class GreedySpecification extends Specification {
         costs                                      | result
         [[10, 20], [30, 200], [400, 50], [30, 20]] | 110
     }
+
+    def "test leastInterval"() {
+        expect:
+        new LeastInterval().leastInterval(tasks as char[], n) == result
+        where:
+        tasks                                                        | n | result
+        ["A", "A", "A", "B", "B", "B"]                               | 2 | 8
+        ["A", "A", "A", "B", "B", "B"]                               | 0 | 6
+        ["A", "A", "A", "A", "A", "A", "B", "C", "D", "E", "F", "G"] | 2 | 16
+    }
 }
