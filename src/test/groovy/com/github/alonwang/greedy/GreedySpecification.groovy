@@ -17,4 +17,12 @@ class GreedySpecification extends Specification {
         [7, -2, -2, 7, 5] | [[-3, 2], [-2, 1], [0, 1], [-2, 4], [-1, 0], [-2, -3], [0, -3], [4, 4], [-3, 3], [2, 2]] | 4
 
     }
+
+    def "test twoCitySchedCost"() {
+        expect:
+        new TwoCitySchedCost().twoCitySchedCost(costs as int[][]) == result
+        where:
+        costs                                      | result
+        [[10, 20], [30, 200], [400, 50], [30, 20]] | 110
+    }
 }
