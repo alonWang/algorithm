@@ -35,4 +35,14 @@ class GreedySpecification extends Specification {
         ["A", "A", "A", "B", "B", "B"]                               | 0 | 6
         ["A", "A", "A", "A", "A", "A", "B", "C", "D", "E", "F", "G"] | 2 | 16
     }
+
+    def "test strWithout3a3b"() {
+        expect:
+        new StrWithout3a3b().strWithout3a3b(A, B) == result
+        where:
+        A | B | result
+        1 | 2 | "bba"
+        3 | 3 | "aabbab"
+
+    }
 }
