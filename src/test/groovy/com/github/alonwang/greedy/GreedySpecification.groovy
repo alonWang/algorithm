@@ -45,4 +45,13 @@ class GreedySpecification extends Specification {
         3 | 3 | "aabbab"
 
     }
+
+    def "test balancedStringSplit"() {
+        expect:
+        new BalancedStringSplit().balancedStringSplit(str) == result
+        where:
+        str          | result
+        "RLLLLRRRLR" | 3
+        "LLLLRRRR"   | 1
+    }
 }
