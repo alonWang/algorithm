@@ -1,5 +1,6 @@
 package com.github.alonwang.greedy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,8 +53,92 @@ import java.util.List;
  * 链接：https://leetcode-cn.com/problems/split-array-into-fibonacci-sequence
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+
 public class SplitIntoFibonacci {
+    private static final int INT_MAX_DIGIT = 10;
+    List<Integer> ans;
+
     public List<Integer> splitIntoFibonacci(String S) {
 
+        ans = new ArrayList<>();
+        return dfs2(0, S, 0, 0, 0) ? ans : new ArrayList<>();
+    }
+
+    /**
+     * @param i
+     * @param s
+     * @param i1    f1
+     * @param i2    f2
+     * @param count 现有的数量
+     * @return
+     */
+    private boolean dfs2(int i, String s, int i1, int i2, int count) {
+        //如果字符串用尽,并且构成了斐波那锲数列(长度>=3),说明满足
+        if (i == s.length()) return count >= 3;
+        //前两个数值之和超过了int范围不符合题目约束
+        if ((((long) i1) + i2) > Integer.MAX_VALUE) return false;
+        //基于加法原理 下一个元素的长度一定是 前两个元素位数长度的最大值 或  前两个元素位数长度的最大值+1
+        int min = Math.max(digitsCount(i1), digitsCount(i2));
+        // 并且这个长度不能超过int位数长度的范围
+        int max = Math.min(INT_MAX_DIGIT, min + 1);
+        //并且不能超过字符串长度
+        max = Math.min(max, s.length() - i);
+        for (int j = min; j <= max; j++) {
+            //非0值不能以0开头
+            if (s.charAt(i) == '0' && j > 1) {
+                return false;
+            }
+            int i3 = Integer.parseInt(s.substring(i, i + j + 1));
+            //满足斐波那锲条件/当前还未构成斐波那锲数列(长度>=3)
+            if (i3 == (i1 + i2) || count < 3) {
+                ans.add(i);
+
+            }
+
+        }
+        return false;
+
+    }
+
+    private int digitsCount(int num) {
+        int digit = 1;
+        while ((num = num / 10) != 0) {
+            digit++;
+        }
+        return digit;
+
+    }
+
+    /**
+     * @p : 当前指针指向数组的索引
+     * @s : 字符串
+     * @pre1 : 前面隔一个的数
+     * @pre2 : 前一个数
+     * @deep : 当前是第几个数
+     **/
+    public boolean dfs(int p, String s, int pre1, int pre2, int deep) {
+        int length = s.length();
+        if (p == length) return deep >= 3;
+
+        for (int i = 1; i <= 11; i++) {
+            //超出长度或者以0开头直接break;
+            if (p + i > length || (s.charAt(p) == '0' && i > 1)) break;
+            //截取字符串
+            String sub = s.substring(p, p + i);
+
+            long numL = Long.parseLong(sub);
+            //判断是否超出范围,或者deep不是0,1却大于他的前两个数之和
+            if (numL > Integer.MAX_VALUE ||
+                    (deep != 0 && deep != 1 && numL > (pre1 + pre2))) break;
+            //转成int
+            Integer num = (int) numL;
+            //满足条件的数,递归加回溯
+            if (deep == 0 || deep == 1 || num.equals(pre1 + pre2)) {
+                ans.add(num);
+                if (dfs(p + i, s, pre2, num, deep + 1)) return true;
+                ans.remove(num);
+            }
+        }
+        return false;
     }
 }
