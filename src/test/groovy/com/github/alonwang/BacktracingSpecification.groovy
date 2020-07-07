@@ -6,12 +6,14 @@ import spock.lang.Specification
 
 class BacktracingSpecification extends Specification {
     def "test subsets"() {
-        expect:
+        given:
         def subsets = new SubSets().subsets(nums as int[])
-        //简化一下,先只比较数量
-        subsets.size() == size
+        subsets = subsets.toSorted()
+        result = result.toSorted()
+        expect:
+        result == subsets
         where:
-        nums      | size
-        [1, 2, 3] | 8
+        nums      | result
+        [1, 2, 3] | [[3], [1], [2], [1, 2, 3], [1, 3], [2, 3], [1, 2], []]
     }
 }
