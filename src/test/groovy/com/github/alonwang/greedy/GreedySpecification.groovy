@@ -54,13 +54,4 @@ class GreedySpecification extends Specification {
         "RLLLLRRRLR" | 3
         "LLLLRRRR"   | 1
     }
-
-    def "test splitIntoFibonacci"() {
-        expect:
-        new SplitIntoFibonacci().splitIntoFibonacci(s) == result
-        where:
-        s         | result
-        "0123"    | []
-        "1101111" | [110, 1, 111]
-    }
 }
