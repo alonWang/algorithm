@@ -8,8 +8,9 @@ class DynamicprogramingSpecification extends Specification {
         expect:
         new Q139().wordBreak(s, wordDict) == result
         where:
-        s           | wordDict                              | result
-        "leetcode"  | ["leet", "code"]                      | true
-        "catsandog" | ["cats", "dog", "sand", "and", "cat"] | false
+        s                                                                                                                                                         | wordDict                                                                                        | result
+        "leetcode"                                                                                                                                                | ["leet", "code"]                                                                                | true
+        "catsandog"                                                                                                                                               | ["cats", "dog", "sand", "and", "cat"]                                                           | false
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab" | ["a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa", "aaaaaaa", "aaaaaaaa", "aaaaaaaaa", "aaaaaaaaaa"] | false
     }
 }

@@ -1,6 +1,6 @@
 package com.github.alonwang.dynamicprograming;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * 给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词。
@@ -32,49 +32,45 @@ import java.util.List;
 public class Q139 {
     public boolean wordBreak(String s, List<String> wordDict) {
         char[] chars = s.toCharArray();
-        boolean[] state = new boolean[s.length() + 1];
-        state[0] = true;
-        int begin = 0, end = 0;
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(0);
+        Set<Integer> visited = new HashSet<>();
         while (true) {
-            int nextBegin = 0;
-            int nextEnd = 0;
-            for (int i = begin; i <= end; i++) {
-                if (state[i]) {
-                    for (String word : wordDict) {
-                        if (match(chars, word, i)) {
-                            int nextPos = i + word.length();
-                            if (nextPos == chars.length) {
-                                return true;
-                            }
-
-                            state[nextPos] = true;
-                            if (nextBegin == 0) {
-                                nextBegin = nextPos;
-                            } else {
-                                nextBegin = Math.min(nextBegin, nextPos);
-                            }
-
-                            if (nextEnd == 0) {
-                                nextEnd = nextPos;
-                            } else {
-                                nextEnd = Math.max(nextEnd, nextPos);
-                            }
-
+            int size = queue.size();
+            if (size == 0) {
+                break;
+            }
+            for (int k = 0; k < size; k++) {
+                int i = queue.poll();
+                if (!visited.add(i)) {
+                    continue;
+                }
+                for (String word : wordDict) {
+                    int nextPos = i + word.length();
+                    if (equalsFrom(chars, word, i)) {
+                        if (nextPos == chars.length) {
+                            return true;
                         }
+
+                        queue.add(nextPos);
+
                     }
                 }
             }
-            //如果遍历一圈，范围都没有变化，说明找不到了
-            if ((nextBegin == 0 && nextEnd == 0) || (nextBegin == begin && nextEnd == end)) {
-                return false;
-            }
-            begin = nextBegin;
-            end = nextEnd;
         }
+        return false;
 
     }
 
-    private boolean match(char[] chars, String word, int i) {
+    /**
+     * 模式串与源串是否在i位置开始匹配
+     *
+     * @param chars 源串
+     * @param word  模式串
+     * @param i     开始匹配位置
+     * @return 是否匹配
+     */
+    private boolean equalsFrom(char[] chars, String word, int i) {
         if (i + word.length() > chars.length) {
             return false;
         }
