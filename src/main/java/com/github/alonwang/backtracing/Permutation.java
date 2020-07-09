@@ -31,24 +31,33 @@ import java.util.Set;
 public class Permutation {
     private List<String> result;
     private char[] chars;
-    private Set<Character> temp;
 
+    /**
+     * 从前到后依次固定字符，到某一位时，如果某个字符在本次已经出现过，那么他肯定是重复的，不用再处理
+     *
+     * @param s
+     * @return
+     */
     public String[] permutation(String s) {
         result = new ArrayList<>();
-        chars = new char[s.length()];
-        temp = new HashSet<>();
+        chars = s.toCharArray();
+
+
         dfs(0);
         return result.toArray(new String[chars.length]);
     }
 
     private void dfs(int i) {
+        //前面已经是无重复了，走到最后一个字符就是满足要求的
         if (i == chars.length - 1) {
             result.add(String.valueOf(chars));
             return;
         }
-        temp.clear();
+
+        Set<Character> appears = new HashSet<>();
         for (int j = i; j < chars.length; j++) {
-            if (temp.contains(chars[j])) continue;
+            if (appears.contains(chars[j])) continue;
+            appears.add(chars[j]);
             swap(i, j);
             dfs(i + 1);
             swap(i, j);

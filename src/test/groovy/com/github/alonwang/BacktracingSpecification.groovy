@@ -37,5 +37,6 @@ class BacktracingSpecification extends Specification {
         where:
         s     | result
         "abc" | ["abc", "acb", "bac", "bca", "cab", "cba"]
+        "aab" | ["aba", "aab", "baa"]
     }
 }
