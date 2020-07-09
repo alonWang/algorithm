@@ -1,6 +1,6 @@
 package com.github.alonwang
 
-
+import com.github.alonwang.backtracing.Permutation
 import com.github.alonwang.backtracing.SubSets
 import com.github.alonwang.greedy.SplitIntoFibonacci
 import spock.lang.Specification
@@ -25,5 +25,17 @@ class BacktracingSpecification extends Specification {
         s           | result
         "123456579" | [123, 456, 579]
         "0000"      | [0, 0, 0, 0]
+    }
+
+    def "test permutation"() {
+        given:
+        def arrays = new Permutation().permutation(s)
+        arrays = arrays.toSorted()
+        result = result.toSorted()
+        expect:
+        arrays == result
+        where:
+        s     | result
+        "abc" | ["abc", "acb", "bac", "bca", "cab", "cba"]
     }
 }
