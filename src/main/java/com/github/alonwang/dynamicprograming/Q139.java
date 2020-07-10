@@ -33,8 +33,10 @@ public class Q139 {
     public boolean wordBreak(String s, List<String> wordDict) {
         char[] chars = s.toCharArray();
         Queue<Integer> queue = new LinkedList<>();
-        queue.add(0);
+        //记录哪些坐标已经处理过了
         Set<Integer> visited = new HashSet<>();
+        //初始化
+        queue.add(0);
         while (true) {
             int size = queue.size();
             if (size == 0) {
