@@ -55,6 +55,7 @@ public class Q1024 {
         if (T == 0) {
             return -1;
         }
+        //先按开始位置顺序排，相同的按结尾倒序排，目的是从前向后以范围优先去处理
         Arrays.sort(clips, (o1, o2) -> {
             int cmp = Integer.compare(o1[0], o2[0]);
             if (cmp != 0) {
@@ -63,43 +64,45 @@ public class Q1024 {
                 return Integer.compare(o2[1], o1[1]);
             }
         });
+
+        int firstBegin = clips[0][0];
+        int firstEnd = clips[0][1];
+        //排序后的第一个起始如果不是0,【0~x]这块肯定就没了，缺帧，不可能涵盖整场比赛
+        if (firstBegin != 0) {
+            return -1;
+        }
+        //一个片段就包含了T
+        if (firstEnd >= T) {
+            return 1;
+        }
+        //state[i] 表示长度i所需片段的最少数量 下标0无意义
         int[] state = new int[T + 1];
         //记录目前到达的最大位置
-        int max = -1;
-        for (int[] clip : clips) {
-            //如果存在从0开始的且结束位置更靠后
-            if (clip[0] == 0) {
-                //无需处理
-                if (max >= clip[1]) {
-                    continue;
-                }
-                if (clip[1] >= T) {
-                    state[T] = 1;
-                    break;
-                } else {
-                    state[clip[1]] = 1;
-                }
-                max = clip[1];
-            } else {
-                //TODO
-                //不连续，无法完成
-                if (clip[0] > max) {
-                    return -1;
-                }
+        int maxPos = firstEnd;
+        //对[firstBegin,firstEnd]这一块，T只需要一个片段
+        Arrays.fill(state, firstBegin, firstEnd + 1, 1);
 
-                if (clip[1] > max) {
-
-                    if (clip[1] >= T) {
-                        state[T] = state[max] + 1;
-                        break;
-                    } else {
-                        state[clip[1]] = state[max] + 1;
-                    }
-
-                    max = clip[1];
-                }
+        for (int i = 1; i < clips.length; i++) {
+            int begin = clips[i][0];
+            int end = clips[i][1];//include
+            //有空缺，无法完成
+            if (begin > maxPos) {
+                return -1;
             }
+            //begin<=maxPos<end => 能接上之前的，且能往右再走新增一点，
+            if (end > maxPos) {
+                //能够满足T了，
+                if (end >= T) {
+                    //在前一个片段上再接上一个正好满足
+                    return state[begin] + 1;
+                } else {
+                    //对于[begin,maxPos]这一块，之前的就是最小片段数，无需处理，对 [maxPos+1,end]这块，等于比state[begin]多接一个
+                    Arrays.fill(state, maxPos + 1, end + 1, state[begin] + 1);
+                }
+                maxPos = end;
+            }
+
         }
-        return state[T] > 0 ? state[T] : -1;
+        return -1;
     }
 }
