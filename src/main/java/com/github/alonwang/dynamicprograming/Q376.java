@@ -1,8 +1,5 @@
 package com.github.alonwang.dynamicprograming;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。
  * <p>
@@ -33,31 +30,35 @@ public class Q376 {
     /**
      * [1,17,5,10,13,15,10,5,16,8]
      * 对应差值  [16,-12,5,3,2,-5,-5,11,-8]
-     * 全为0的情况
-     * 首差值为0的情况
+     * 如果有连续正负，只取第一个即可
+     * 要求O(n)
      *
      * @param nums
      * @return
      */
     public int wiggleMaxLength(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
         if (nums.length == 1) {
             return 1;
         }
-        List<Integer> diff = new ArrayList<>(nums.length - 1);
         int flag = 0;
-        int i = 0;
-        while (diff.size() > 1) {
-            int num = diff.get(i);
-            if (num == 0) {
-                if (i == 0) {
+        int count = 1;
 
-                }
-                //移除
+        for (int i = 1; i < nums.length; i++) {
+            int diff = nums[i] - nums[i - 1];
+            if (diff == 0) {
+                continue;
             }
-            if (flag == 0) {
-                flag = num > 0 ? 1 : -1;
+            if (flag == 0) {//需要确定首位的正负值，后续据此轮动
+                count++;
+                flag = diff > 0 ? -1 : 1;
+            } else if (diff * flag > 0) {
+                count++;
+                flag = -flag;
             }
         }
-        return diff.size() + 1;
+        return count;
     }
 }

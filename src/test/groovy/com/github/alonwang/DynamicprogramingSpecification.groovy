@@ -22,5 +22,8 @@ class DynamicprogramingSpecification extends Specification {
         nums                                 | result
         [1, 7, 4, 9, 2, 5]                   | 6
         [1, 17, 5, 10, 13, 15, 10, 5, 16, 8] | 7
+        [1]                                  | 1
+        [1, 1]                               | 1
+        []                                   | 0
     }
 }
