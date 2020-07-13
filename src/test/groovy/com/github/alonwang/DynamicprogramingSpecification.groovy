@@ -1,9 +1,6 @@
 package com.github.alonwang
 
-import com.github.alonwang.dynamicprograming.Q1024
-import com.github.alonwang.dynamicprograming.Q139
-import com.github.alonwang.dynamicprograming.Q376
-import com.github.alonwang.dynamicprograming.Q44
+import com.github.alonwang.dynamicprograming.*
 import spock.lang.Specification
 
 class DynamicprogramingSpecification extends Specification {
@@ -50,5 +47,13 @@ class DynamicprogramingSpecification extends Specification {
         s       | p       | result
         "aa"    | "a"     | false
         "acdcb" | "a*c?b" | false
+    }
+
+    def "test Q312"() {
+        expect:
+        new Q312().maxCoins(nums as int[]) == result
+        where:
+        nums         | result
+        [3, 1, 5, 8] | 167
     }
 }
