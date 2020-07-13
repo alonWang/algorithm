@@ -47,7 +47,8 @@ class DynamicprogramingSpecification extends Specification {
         expect:
         new Q44().isMatch(s, p) == result
         where:
-        s    | p   | result
-        "aa" | "a" | false
+        s       | p       | result
+        "aa"    | "a"     | false
+        "acdcb" | "a*c?b" | false
     }
 }

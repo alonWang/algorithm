@@ -89,7 +89,7 @@ public class Q44 {
                 if (pChars[i - 1] == sChars[j - 1] || pChars[i - 1] == '?') {
                     state[i][j] = state[i - 1][j - 1];
                 } else if (pChars[i - 1] == '*') {
-                    state[i][j] = state[i][j - 1] || state[i - 1][j];
+                    state[i][j] = state[i][j - 1] | state[i - 1][j];
                 }
             }
         }
