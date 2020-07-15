@@ -1,8 +1,5 @@
 package com.github.alonwang.dynamicprograming;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 /**
  * 一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。
  * <p>
@@ -45,16 +42,16 @@ import java.util.concurrent.ConcurrentHashMap;
  * @detail
  */
 public class Q62 {
+    private static final int LENGTH = 100;
     //记录所有
-    private static final Map<Integer, Integer> paths = new ConcurrentHashMap<>();
+    private static final int[][] state = new int[LENGTH][LENGTH];
 
     static {
-        //从(0,0)到(0，0)路径数为0
-        paths.put(encode(0, 0), 0);
-    }
 
-    private static int encode(int l1, int l2) {
-        return (l1 << 16) + l2;
+        for (int i = 0; i < 100; i++) {
+            state[i][0] = 1;
+            state[0][i] = 1;
+        }
     }
 
     /**
@@ -63,17 +60,32 @@ public class Q62 {
      * 开始固定为左上角，结束固定为右下角
      * 由此某一个状态来自它的上方和左方之和
      * 2. 找状态变化方程
-     * state[i][j]=state[i-1][j]+state[i][j-1]
+     * state[i][j]=state[i-1][j]+state[i][j-1] (i>=1&&j>=1)
      * 3. 确定初始状态，结束条件
-     * 初始 state[0][0]=1
+     * 初始
+     * <p>
+     * state[0][x]=1  x>=0
+     * state[x][0]=1  x>=0
      * 结束 state[n-1][m-1]
-     * 到这里可以转换为数学题了
+     * 这个和斐波那锲数列非常相似了,到这里可以转换为数学题了 我就先不研究数学了
      *
      * @param m
      * @param n
      * @return
      */
     public int uniquePaths(int m, int n) {
+        return dfs(n - 1, m - 1);
 
+    }
+
+    private int dfs(int l1, int l2) {
+        if (l1 < 0 || l2 < 0) {
+            return 0;
+        } else {
+            if (state[l1][l2] == 0) {
+                state[l1][l2] = dfs(l1 - 1, l2) + dfs(l1, l2 - 1);
+            }
+            return state[l1][l2];
+        }
     }
 }

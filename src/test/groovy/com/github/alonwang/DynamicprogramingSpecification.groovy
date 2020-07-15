@@ -56,4 +56,13 @@ class DynamicprogramingSpecification extends Specification {
         nums         | result
         [3, 1, 5, 8] | 167
     }
+
+    def "test Q62"() {
+        expect:
+        new Q62().uniquePaths(m, n) == result
+        where:
+        m | n | result
+        7 | 3 | 28
+        1 | 1 | 1
+    }
 }
