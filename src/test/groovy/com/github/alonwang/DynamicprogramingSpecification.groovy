@@ -65,4 +65,12 @@ class DynamicprogramingSpecification extends Specification {
         7 | 3 | 28
         1 | 1 | 1
     }
+
+    def "test Q53"() {
+        expect:
+        new Q53().maxSubArray(nums as int[]) == result
+        where:
+        nums                            | result
+        [-2, 1, -3, 4, -1, 2, 1, -5, 4] | 6
+    }
 }
