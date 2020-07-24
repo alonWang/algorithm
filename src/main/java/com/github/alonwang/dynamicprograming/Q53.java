@@ -24,17 +24,57 @@ package com.github.alonwang.dynamicprograming;
  */
 public class Q53 {
     public int maxSubArray(int[] nums) {
-        int[] state = new int[nums.length];
-        state[0] = nums[0];
+        int state = nums[0];
         int max = nums[0];
         for (int i = 1; i < nums.length; i++) {
-            if (state[i - 1] > 0) {
-                state[i] = state[i - 1] + nums[i];
+            if (state > 0) {
+                state += nums[i];
             } else {
-                state[i] = nums[i];
+                state = nums[i];
             }
-            max = Math.max(max, state[i]);
+            max = Math.max(max, state);
         }
         return max;
+    }
+
+    public int maxSubArray2(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        return divide(nums, 0, nums.length - 1);
+    }
+
+    /**
+     * 考虑将数组划分成两半,那么最大子序列只能出现在 左侧子数组[left,mid],右侧子数组[mid+1,right],和中间[x,y] (left<=x<y<=right)
+     * 基于这个特性进行分治
+     *
+     * @param nums
+     * @param left  include
+     * @param right include
+     * @return
+     */
+    private int divide(int[] nums, int left, int right) {
+        if (left == right) {
+            return nums[left];
+        }
+        int mid = left + (right - left) / 2;
+        //左边的最大值
+        int leftMax = divide(nums, left, mid);
+        //右边的最大值
+        int rightMax = divide(nums, mid + 1, right);
+        //中间的最大值,需要从中间位置向左,向右辐射得出
+        int sum = 0;
+        int leftPartMax = Integer.MIN_VALUE, rightPartMax = Integer.MIN_VALUE;
+        for (int i = mid; i >= left; i--) {
+            sum += nums[i];
+            leftPartMax = Math.max(leftPartMax, sum);
+        }
+        sum = 0;
+        for (int i = mid + 1; i <= right; i++) {
+            sum += nums[i];
+            rightPartMax = Math.max(rightPartMax, sum);
+        }
+        int middleMax = leftPartMax + rightPartMax;
+        return Math.max(Math.max(leftMax, rightMax), middleMax);
     }
 }
