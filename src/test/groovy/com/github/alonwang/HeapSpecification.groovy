@@ -22,6 +22,8 @@ class HeapSpecification extends Specification {
     def "Q973 test"() {
         expect:
         new Q973().kClosest(points as int[][], k) == result
+        new Q973().kClosest2(points as int[][], k) == result
+
         where:
         points            | k | result
         [[1, 3], [-2, 2]] | 1 | [[-2, 2]]

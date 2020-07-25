@@ -1,5 +1,6 @@
 package com.github.alonwang.heap;
 
+import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -57,5 +58,17 @@ public class Q973 {
 
     private int ojld(int[] point) {
         return point[0] * point[0] + point[1] * point[1];
+    }
+
+    /**
+     * 排序方式
+     *
+     * @param points
+     * @param K
+     * @return
+     */
+    public int[][] kClosest2(int[][] points, int K) {
+        Arrays.sort(points, (o1, o2) -> ojld(o1) - ojld(o2));
+        return Arrays.copyOfRange(points, 0, K);
     }
 }
